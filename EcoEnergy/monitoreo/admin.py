@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Organization, Category, Zone, Device, Measurement, Alert
+
+admin.site.register([Organization, Category, Zone, Device, Measurement, Alert])
