@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from monitoreo import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('devices/', views.device_list, name='device_list'),
+    path('devices/<int:device_id>/', views.device_details, name='views.device_details'),
+    path('measurements/', views.measurements_list, name='measurements_list')
 ]
