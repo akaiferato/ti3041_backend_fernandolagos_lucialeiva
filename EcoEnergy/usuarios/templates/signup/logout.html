@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="card p-4 mx-auto" style="max-width: 400px;">
+        <h2 class="card-title">¡Has cerrado sesión!</h2>
+        <p class="card-text">Gracias por visitar EcoEnergy. Esperamos verte pronto.</p>
+        <hr>
+        <a href="{% url 'login' %}" class="btn btn-primary mt-3">Iniciar sesión de nuevo</a>
+    </div>
+</div>
+{% endblock content %}

@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.views.generic import RedirectView
+from django.urls import path
+from . import views
+
+app_name = 'monitoreo'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('usuarios.urls')),
-    path('monitoreo/', include('monitoreo.urls')),
-    path('', RedirectView.as_view(url='/monitoreo/dashboard', permanent=True)),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('devices/', views.device_list, name='device_list'),
+    path('devices/<int:id>/', views.device_details, name='device_details')
 ]
