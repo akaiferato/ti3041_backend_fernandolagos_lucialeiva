@@ -23,5 +23,6 @@ app_name = 'monitoreo'
 urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('devices/', views.device_list, name='device_list'),
-    path('devices/<int:id>/', views.device_details, name='device_details')
+    path('devices/<int:id>/', views.device_details, name='device_details'),
+    path('measurements/', views.measurement_list, name='measurement_list')
 ]

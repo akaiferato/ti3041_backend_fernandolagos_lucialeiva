@@ -9,7 +9,7 @@ from .models import Category, Zone, Device, Measurement, Alert
 def dashboard(request):
     devices_categories = Category.objects.annotate(n_devices=Count('devices')).order_by('name')
     devices_zones = Zone.objects.annotate(n_devices=Count('devices')).order_by('device_zone')
-
+    
     week_ago = timezone.now() - timedelta(days=7)
     week_alerts = Alert.objects.filter(measurement__date__gte=week_ago)
     alert_summary = {
@@ -58,9 +58,8 @@ def device_details(request, id):
     }
     return render(request, 'device_details.html', context)
 
+def measurement_list(request):
+    measurements = Measurement.objects.select_related('device').order_by('-date')
+    context = {'measurements': measurements}
 
-# def measurements_list(request):
-#    measurements = Measurement.objects.select_related('device').order_by('-timestamp')
-#    context = {'measurements': measurements}
-
-#    return render(request, "monitoreo/measurements_list.html", context)
+    return render(request, "measurement_list.html", context)
