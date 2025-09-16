@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de {{ dispositivo.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ dispositivo.nombre }}</h2>
+    <p><strong>Categoría:</strong> {{ dispositivo.categoria.nombre|default:"N/A" }}</p>
+    <p><strong>Zona:</strong> {{ dispositivo.zona.nombre }}</p>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Últimas Mediciones</h4>
+            <ul class="list-group">
+                {% for medicion in mediciones %}
+                <li class="list-group-item">{{ medicion.timestamp|date:"d/m/Y H:i" }} - <strong>{{ medicion.valor }} kWh</strong></li>
+                {% empty %}
+                <li class="list-group-item">Sin mediciones.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h4>Alertas Asociadas</h4>
+            <ul class="list-group">
+                {% for alerta in alertas %}
+                <li class="list-group-item list-group-item-{% if alerta.nivel == 'GRV' %}danger{% elif alerta.nivel == 'ALT' %}warning{% else %}info{% endif %}">
+                    <strong>{{ alerta.get_nivel_display }}:</strong> {{ alerta.mensaje }} ({{ alerta.timestamp|date:"d/m/Y H:i" }})
+                </li>
+                {% empty %}
+                <li class="list-group-item">Sin alertas.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <a href="{% url 'monitoreo:lista_dispositivos' %}" class="btn btn-secondary mt-3">Volver al listado</a>
+</div>
+{% endblock %}	
